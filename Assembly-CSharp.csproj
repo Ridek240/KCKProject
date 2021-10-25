@@ -61,6 +61,7 @@
     <Compile Include="Assets\Scripts\testingscript.cs" />
     <Compile Include="Assets\Scripts\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\Interactable.cs" />
+    <Compile Include="Assets\Scripts\AsciiGui.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
