@@ -21,12 +21,8 @@ public class Inventory : MonoBehaviour
 
 #endregion
 
-public delegate void OnInventoryChanged();
-public OnInventoryChanged onItemChanged;
-
-
-
-    
+    public delegate void OnInventoryChanged();
+    public OnInventoryChanged onItemChanged;
 
 
     public List<Item> items = new List<Item>();
@@ -46,4 +42,9 @@ public OnInventoryChanged onItemChanged;
         { onItemChanged.Invoke(); }
     }
 
+
+    private void Start()
+    {
+        Add(new Item("T", "Good one"));
+    }
 }

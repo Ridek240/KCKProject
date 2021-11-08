@@ -326,11 +326,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displaySize: {x: 100, y: 100}
+  listPosition: {x: 15, y: 7}
+  listLenght: {x: 54, y: 8}
+  listCursor: 0
   displayTextObject: {fileID: 1862306973}
-  curHp: 23
+  curHp: 37
   maxHp: 236
   curMp: 21
   maxMP: 55
+  inventory: []
 --- !u!1 &410973457
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,4 +6,11 @@ public class Item : ScriptableObject
 {
     new public string name = "new Item";
     public string desc = "opis";
+
+    public Item() { }
+    public Item(string name, string desc)
+    {
+        this.name = name;
+        this.desc = desc;
+    }
 }

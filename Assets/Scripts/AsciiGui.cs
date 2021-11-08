@@ -7,6 +7,11 @@ using UnityEngine.UI;
 public class AsciiGui : MonoBehaviour
 {
     public Vector2 displaySize = new Vector2(100, 100);
+    public Vector2 listPosition = new Vector2(15, 7);
+    public Vector2 listLenght = new Vector2(60, 8);
+
+    public int listCursor = 0;
+
     private string[] displayImage;
     public Text displayTextObject;
 
@@ -16,17 +21,24 @@ public class AsciiGui : MonoBehaviour
     public int curMp = 21;
     public int maxMP = 55;
 
+    public List<Item> inventory = new List<Item>();
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        inventory.Add(new Item("T", "Good One"));
+        inventory.Add(new Item("A", "Good One"));
+        inventory.Add(new Item("KAS", "Good One"));
     }
 
     // Update is called once per frame
     void Update()
     {
         PrepareDisplay();
+
         StatusDisplay();
+        ShowInventoryList();
+
         Draw();
     }
     void PrepareDisplay()
@@ -39,6 +51,77 @@ public class AsciiGui : MonoBehaviour
                 displayImage[i] += " ";
             }
         }
+    }
+
+    void ShowInventoryList()
+    {
+        CreateInventoryList();
+
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            Replace((int)listPosition.x + 5 + (int)(listLenght.x - inventory[i].name.Length) / 2, ref displayImage[i * 4 + (int)listPosition.y + 2], inventory[i].name);
+        }
+    }
+
+    void CreateInventoryList()
+    {
+
+        string[] image = CreateRow(6, (int)listLenght.x, 5, "-", "|", " ", " ");
+        string[] selectedImage = CreateRow(6, (int)listLenght.x, 5, "/", "/", " ", "+");
+
+        for (int i = 0; i < listLenght.y; i++)
+        {
+            for (int j = 0; j < image.Length - 1; j++)
+            {
+                if (i == listCursor)
+                    Replace((int)listPosition.x, ref displayImage[j + i * (image.Length - 1) + (int)listPosition.y], selectedImage[j]);
+                else if (i == listCursor + 1 && j == 0)
+                    Replace((int)listPosition.x, ref displayImage[j + i * (image.Length - 1) + (int)listPosition.y], selectedImage[j]);
+                else
+                    Replace((int)listPosition.x, ref displayImage[j + i * (image.Length - 1) + (int)listPosition.y], image[j]);
+            }
+        }
+        if (listCursor + 1 == listLenght.y)
+            Replace((int)listPosition.x, ref displayImage[(int)listLenght.y * (selectedImage.Length - 1) + (int)listPosition.y], selectedImage[selectedImage.Length - 1]);
+        else
+            Replace((int)listPosition.x, ref displayImage[(int)listLenght.y * (image.Length - 1) + (int)listPosition.y], image[image.Length - 1]);
+    }
+
+    string[] CreateRow(int lenght1, int lenght2, int height, string characterTopBot, string characterLeftRight, string characterFill, string characterCorners)
+    {
+        string[] image = new string[height];
+
+        image[0] += characterCorners;
+        image[1] += characterLeftRight;
+        image[2] += characterLeftRight;
+        image[3] += characterLeftRight;
+        image[4] += characterCorners;
+
+        AddAmount(ref image[0], lenght1 - 2, characterTopBot);
+        AddAmount(ref image[1], lenght1 - 2, characterFill);
+        AddAmount(ref image[2], lenght1 - 2, characterFill);
+        AddAmount(ref image[3], lenght1 - 2, characterFill);
+        AddAmount(ref image[4], lenght1 - 2, characterTopBot);
+
+        image[0] += characterCorners;
+        image[1] += characterLeftRight;
+        image[2] += characterLeftRight;
+        image[3] += characterLeftRight;
+        image[4] += characterCorners;
+
+        AddAmount(ref image[0], lenght2 - 2, characterTopBot);
+        AddAmount(ref image[1], lenght2 - 2, characterFill);
+        AddAmount(ref image[2], lenght2 - 2, characterFill);
+        AddAmount(ref image[3], lenght2 - 2, characterFill);
+        AddAmount(ref image[4], lenght2 - 2, characterTopBot);
+
+        image[0] += characterCorners;
+        image[1] += characterLeftRight;
+        image[2] += characterLeftRight;
+        image[3] += characterLeftRight;
+        image[4] += characterCorners;
+
+        return image;
     }
 
     void StatusDisplay()
@@ -88,6 +171,14 @@ public class AsciiGui : MonoBehaviour
         var stringBuilder = new StringBuilder(orginalText);
         stringBuilder.Remove(position, replaceText.Length).Insert(position, replaceText);
         orginalText = stringBuilder.ToString();
+    }
+
+    void AddAmount(ref string text, int amount, string character)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            text += character;
+        }
     }
 
     void Draw()
