@@ -7,19 +7,17 @@ public class Inventory : MonoBehaviour
 
    public static Inventory instance;
    
-   #region Singleton
-   void Awake()
+    #region Singleton
+    void Awake()
     {
-     if (instance!=null)
-     {
-         Debug.LogWarning("instance error");
-         return;
-     }
-     instance = this;
-
+        if (instance!=null)
+        {
+            Debug.LogWarning("instance error");
+            return;
+        }
+        instance = this;
     }
-
-#endregion
+    #endregion
 
     public delegate void OnInventoryChanged();
     public OnInventoryChanged onItemChanged;
@@ -31,8 +29,7 @@ public class Inventory : MonoBehaviour
         items.Add(item);
         Debug.Log("ItemAdded"+ item.name);
         return true;
-        if(onItemChanged!=null)
-        { onItemChanged.Invoke(); }
+        if (onItemChanged != null) { onItemChanged.Invoke(); }
     }
     public void Remove(Item item)
     {
@@ -41,10 +38,8 @@ public class Inventory : MonoBehaviour
         if (onItemChanged != null)
         { onItemChanged.Invoke(); }
     }
-
-
     private void Start()
     {
-        Add(new Item("T", "Good one"));
+        Add(new Item("Sword", "Good one"));
     }
 }

@@ -10,25 +10,27 @@ public class AsciiGui : MonoBehaviour
     public Vector2 listPosition = new Vector2(15, 7);
     public Vector2 listLenght = new Vector2(60, 8);
 
+    public PlayerControl Player;
+
     public int listCursor = 0;
 
     private string[] displayImage;
     public Text displayTextObject;
 
-    public int curHp = 37;
-    public int maxHp = 236;
+    public int CurrentHealth = 37;
+    public int MaxHealth = 236;
 
-    public int curMp = 21;
-    public int maxMP = 55;
+    public int CurrentStamina = 21;
+    public int MaxStamina = 55;
 
     public List<Item> inventory = new List<Item>();
 
     // Start is called before the first frame update
     void Start()
     {
-        inventory.Add(new Item("T", "Good One"));
-        inventory.Add(new Item("A", "Good One"));
-        inventory.Add(new Item("KAS", "Good One"));
+        //inventory.Add(new Item("T", "Good One"));
+        //inventory.Add(new Item("A", "Good One"));
+        //inventory.Add(new Item("KAS", "Good One"));
     }
 
     // Update is called once per frame
@@ -36,8 +38,15 @@ public class AsciiGui : MonoBehaviour
     {
         PrepareDisplay();
 
+        if (Player.IsInventoryOpen())
+        {
+            inventory = Player.GetInventory();
+            listCursor = Player.GetInventoryCursor();
+            ShowInventoryList();
+        }
+
+        GetStatus();
         StatusDisplay();
-        ShowInventoryList();
 
         Draw();
     }
@@ -51,6 +60,15 @@ public class AsciiGui : MonoBehaviour
                 displayImage[i] += " ";
             }
         }
+    }
+
+    void GetStatus()
+    {
+        CurrentHealth = Player.GetHealth();
+        MaxHealth = Player.GetMaxHealth();
+
+        CurrentStamina = Player.GetStamina();
+        MaxStamina = Player.GetMaxStamina();
     }
 
     void ShowInventoryList()
@@ -127,7 +145,7 @@ public class AsciiGui : MonoBehaviour
     void StatusDisplay()
     {
         string hp;
-        string mp;
+        string sp;
 
         int stringSize = 21;
         
@@ -135,7 +153,7 @@ public class AsciiGui : MonoBehaviour
             "     ---------------------",
             " HP:                      ",
             "     ---------------------",
-            " MP:                      ",
+            " SP:                      ",
             "     ---------------------"
         };
         
@@ -144,16 +162,16 @@ public class AsciiGui : MonoBehaviour
             Replace(0, ref displayImage[i], image[i]);
         }
 
-        hp = CreateBar((float)curHp, (float)maxHp, stringSize, "|");
-        mp = CreateBar((float)curMp, (float)maxMP, stringSize, "|");
+        hp = CreateBar((float)CurrentHealth, (float)MaxHealth, stringSize, "|");
+        sp = CreateBar((float)CurrentStamina, (float)MaxStamina, stringSize, "|");
         Replace(5, ref displayImage[1], hp);
-        Replace(5, ref displayImage[3], mp);
+        Replace(5, ref displayImage[3], sp);
 
 
-        hp = curHp + "/" + maxHp;
-        mp = curMp + "/" + maxMP;
-        Replace(15 - curHp.ToString().Length, ref displayImage[1], hp);
-        Replace(15 - curMp.ToString().Length, ref displayImage[3], mp);
+        hp = CurrentHealth + "/" + MaxHealth;
+        sp = CurrentStamina + "/" + MaxStamina;
+        Replace(15 - CurrentHealth.ToString().Length, ref displayImage[1], hp);
+        Replace(15 - CurrentStamina.ToString().Length, ref displayImage[3], sp);
     }
 
     string CreateBar(float currentValue, float maxValue, int stringSize, string character)

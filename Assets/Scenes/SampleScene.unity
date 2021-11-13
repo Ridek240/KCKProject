@@ -199,6 +199,9 @@ MonoBehaviour:
     m_Bits: 0
   gravity: -9.81
   jumpHeight: 2
+  inInventory: 0
+  inventory: {fileID: 264860021}
+  inventoryCursor: 0
 --- !u!114 &264860021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,6 +331,7 @@ MonoBehaviour:
   displaySize: {x: 100, y: 100}
   listPosition: {x: 15, y: 7}
   listLenght: {x: 54, y: 8}
+  Player: {fileID: 264860020}
   listCursor: 0
   displayTextObject: {fileID: 1862306973}
   curHp: 37
@@ -1126,7 +1130,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "     --------------------\r-\n HP: ||||||||50/100|||||||\r\n     ---------------------\r\n
-    MP: |||||||||0/0|||||||||\r\n     ---------------------"
+    SP: |||||||||0/0|||||||||\r\n     ---------------------"
 --- !u!222 &1862306974
 CanvasRenderer:
   m_ObjectHideFlags: 0
