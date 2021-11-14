@@ -190,6 +190,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 264860018}
+  CurrentHealth: 3
+  MaxHealth: 35
+  CurrentStamina: 14
+  MaxStamina: 36
   speed: 12
   sprintspeed: 30
   groundCheck: {fileID: 1083486764}
@@ -334,10 +338,10 @@ MonoBehaviour:
   Player: {fileID: 264860020}
   listCursor: 0
   displayTextObject: {fileID: 1862306973}
-  curHp: 37
-  maxHp: 236
-  curMp: 21
-  maxMP: 55
+  CurrentHealth: 37
+  MaxHealth: 236
+  CurrentStamina: 21
+  MaxStamina: 55
   inventory: []
 --- !u!1 &410973457
 GameObject:

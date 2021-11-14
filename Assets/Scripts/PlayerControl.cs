@@ -76,7 +76,7 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetButtonDown("Vertical"))
         {
             int y = (int)Mathf.Sign(Input.GetAxis("Vertical"));
-            inventoryCursor -= y;
+            inventoryCursor += GetInventory().Count - y;
             inventoryCursor = inventoryCursor % GetInventory().Count;
         }
         else if (true) { }
