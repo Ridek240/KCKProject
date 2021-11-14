@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     public CharacterController characterController;
+    public PlayerStats playerstats;
 
     public int CurrentHealth = 3;
     public int MaxHealth = 35;
@@ -25,6 +26,13 @@ public class PlayerControl : MonoBehaviour
     public Inventory inventory;
     public int inventoryCursor = 0;
 
+    public Vector3 move;
+
+    void Start()
+    {
+        playerstats = gameObject.GetComponent(typeof(PlayerStats)) as PlayerStats;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -33,11 +41,24 @@ public class PlayerControl : MonoBehaviour
 
         if (IsInventoryOpen())
         {
+            move = Vector3.zero;
             InventoryMovement();
         }
         else
         {
             Movement();
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (Input.GetKey(KeyCode.LeftShift) && move != Vector3.zero && playerstats.TryUseStamina(2))
+        {
+            characterController.Move(move * sprintspeed * Time.deltaTime);
+        }
+        else
+        {
+            characterController.Move(move * speed * Time.deltaTime);
         }
     }
 
@@ -51,19 +72,16 @@ public class PlayerControl : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded && playerstats.TryUseStamina(20))
         {
             velocity.y = Mathf.Sqrt(jumpHeight * 2f * -gravity);
         }
-        Vector3 move = transform.right * x + transform.forward * z;
+        move = transform.right * x + transform.forward * z;
 
-        if (Input.GetKey(KeyCode.LeftShift))
+
+        if (Input.GetKey(KeyCode.O))
         {
-            characterController.Move(move * sprintspeed * Time.deltaTime);
-        }
-        else
-        {
-            characterController.Move(move * speed * Time.deltaTime);
+            Debug.Log("System Debug Pause");
         }
 
         velocity.y += gravity * Time.deltaTime;
@@ -79,14 +97,17 @@ public class PlayerControl : MonoBehaviour
             inventoryCursor += GetInventory().Count - y;
             inventoryCursor = inventoryCursor % GetInventory().Count;
         }
-        else if (true) { }
+        else if (Input.GetKeyDown(KeyCode.Q)) 
+        {
+            inventory.Remove(inventoryCursor);
+        }
     }
 
-    public List<Item> GetInventory() { return inventory.items; }
+    public List<InvStack> GetInventory() { return inventory.items; }
     public bool IsInventoryOpen() { return inInventory; }
     public int GetInventoryCursor() { return inventoryCursor; }
-    public int GetHealth() { return CurrentHealth; }
-    public int GetMaxHealth() { return MaxHealth; }
-    public int GetStamina() { return CurrentStamina; }
-    public int GetMaxStamina() { return MaxStamina; }
+    public int GetHealth() { return playerstats.GetCurrentHealth(); }
+    public int GetMaxHealth() { return playerstats.GetMaxHealth(); }
+    public float GetStamina() { return playerstats.GetCurrentStamina(); }
+    public float GetMaxStamina() { return playerstats.GetMaxStamina(); }
 }

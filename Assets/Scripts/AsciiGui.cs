@@ -23,7 +23,7 @@ public class AsciiGui : MonoBehaviour
     public int CurrentStamina = 21;
     public int MaxStamina = 55;
 
-    public List<Item> inventory = new List<Item>();
+    public List<InvStack> inventory = new List<InvStack>();
 
     // Start is called before the first frame update
     void Start()
@@ -64,11 +64,11 @@ public class AsciiGui : MonoBehaviour
 
     void GetStatus()
     {
-        CurrentHealth = Player.GetHealth();
-        MaxHealth = Player.GetMaxHealth();
+        CurrentHealth = (int)Player.GetHealth();
+        MaxHealth = (int)Player.GetMaxHealth();
 
-        CurrentStamina = Player.GetStamina();
-        MaxStamina = Player.GetMaxStamina();
+        CurrentStamina = (int)Player.GetStamina();
+        MaxStamina = (int)Player.GetMaxStamina();
     }
 
     void ShowInventoryList()
@@ -77,7 +77,15 @@ public class AsciiGui : MonoBehaviour
 
         for (int i = 0; i < inventory.Count; i++)
         {
-            Replace((int)listPosition.x + 5 + (int)(listLenght.x - inventory[i].name.Length) / 2, ref displayImage[i * 4 + (int)listPosition.y + 2], inventory[i].name);
+            Replace((int)listPosition.x + 5 + (int)(listLenght.x - inventory[i].item.name.Length) / 2, 
+                ref displayImage[i * 4 + (int)listPosition.y + 2], 
+                inventory[i].item.name);
+            Replace((int)listPosition.x + 2,
+                ref displayImage[i * 4 + (int)listPosition.y + 2],
+                "00");
+            Replace((int)listPosition.x + 4 - inventory[i].actualstack.ToString().Length,
+                ref displayImage[i * 4 + (int)listPosition.y + 2],
+                inventory[i].actualstack.ToString());
         }
     }
 

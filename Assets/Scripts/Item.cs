@@ -6,6 +6,7 @@ public class Item : ScriptableObject
 {
     new public string name = "new Item";
     public string desc = "opis";
+    public int stacksize = 3;
 
     public Item() { }
     public Item(string name, string desc)

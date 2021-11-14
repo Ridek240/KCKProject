@@ -190,6 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 264860018}
+  playerstats: {fileID: 0}
   CurrentHealth: 3
   MaxHealth: 35
   CurrentStamina: 14
@@ -200,7 +201,7 @@ MonoBehaviour:
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   gravity: -9.81
   jumpHeight: 2
   inInventory: 0
@@ -355,7 +356,7 @@ GameObject:
   - component: {fileID: 410973460}
   - component: {fileID: 410973459}
   - component: {fileID: 410973458}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
