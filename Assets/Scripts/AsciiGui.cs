@@ -25,6 +25,8 @@ public class AsciiGui : MonoBehaviour
 
     public List<InvStack> inventory = new List<InvStack>();
 
+    public Vector2 characterSize = new Vector2(6, 11);
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +54,7 @@ public class AsciiGui : MonoBehaviour
     }
     void PrepareDisplay()
     {
+        displaySize = new Vector2(Screen.width / characterSize.x, Screen.height / characterSize.y);
         displayImage = new string[(int)displaySize.y];
         for (int i = 0; i < (int)displaySize.y; i++)
         {
@@ -73,6 +76,9 @@ public class AsciiGui : MonoBehaviour
 
     void ShowInventoryList()
     {
+        listLenght.x = displaySize.x - listPosition.x * 2 - 5;
+        listLenght.y = (displaySize.y - listPosition.y * 2) / 5 + 2;
+
         CreateInventoryList();
 
         for (int i = 0; i < inventory.Count; i++)
@@ -95,7 +101,7 @@ public class AsciiGui : MonoBehaviour
         string[] image = CreateRow(6, (int)listLenght.x, 5, "-", "|", " ", " ");
         string[] selectedImage = CreateRow(6, (int)listLenght.x, 5, "/", "/", " ", "+");
 
-        for (int i = 0; i < listLenght.y; i++)
+        for (int i = 0; i < (int)listLenght.y; i++)
         {
             for (int j = 0; j < image.Length - 1; j++)
             {
@@ -107,10 +113,14 @@ public class AsciiGui : MonoBehaviour
                     Replace((int)listPosition.x, ref displayImage[j + i * (image.Length - 1) + (int)listPosition.y], image[j]);
             }
         }
-        if (listCursor + 1 == listLenght.y)
-            Replace((int)listPosition.x, ref displayImage[(int)listLenght.y * (selectedImage.Length - 1) + (int)listPosition.y], selectedImage[selectedImage.Length - 1]);
+        if (listCursor + 1 == (int)listLenght.y)
+            Replace((int)listPosition.x, 
+                ref displayImage[(int)listLenght.y * (selectedImage.Length - 1) + (int)listPosition.y], 
+                selectedImage[selectedImage.Length - 1]);
         else
-            Replace((int)listPosition.x, ref displayImage[(int)listLenght.y * (image.Length - 1) + (int)listPosition.y], image[image.Length - 1]);
+            Replace((int)listPosition.x, 
+                ref displayImage[(int)listLenght.y * (image.Length - 1) + (int)listPosition.y], 
+                image[image.Length - 1]);
     }
 
     string[] CreateRow(int lenght1, int lenght2, int height, string characterTopBot, string characterLeftRight, string characterFill, string characterCorners)

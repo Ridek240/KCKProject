@@ -40,7 +40,14 @@ public class Inventory : MonoBehaviour
         //if(checkstacks!=null)
         if (cross)
         {
-            items.Add(new InvStack(item));
+            if (items.Count >= 8)
+            {
+                return false;
+            }
+            else
+            {
+                items.Add(new InvStack(item));
+            }
         }
 
         Debug.Log("ItemAdded" + item.name);
@@ -59,7 +66,12 @@ public class Inventory : MonoBehaviour
     public void Remove(int id)
     {
         InvStack invStack = items[id];
-        if (invStack.actualstack > 2)
+        if(invStack==null)
+        {
+            Debug.Log("Empty Sloth");
+            return;
+        }
+        if (invStack.actualstack > 1)
         {
             invStack.actualstack -= 1;
         }
