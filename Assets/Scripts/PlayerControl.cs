@@ -6,6 +6,7 @@ public class PlayerControl : MonoBehaviour
 {
     public CharacterController characterController;
     public PlayerStats playerstats;
+    public MouseLook mouseLook;
 
     public int CurrentHealth = 3;
     public int MaxHealth = 35;
@@ -22,6 +23,8 @@ public class PlayerControl : MonoBehaviour
     public float gravity = -9.81f;
     public float jumpHeight = 2f;
 
+    public UIStatus currentStatus;
+
     public bool inInventory = false;
     public Inventory inventory;
     public int inventoryCursor = 0;
@@ -30,36 +33,19 @@ public class PlayerControl : MonoBehaviour
 
     void Start()
     {
+        currentStatus = UIStatus.InGame;
         playerstats = gameObject.GetComponent(typeof(PlayerStats)) as PlayerStats;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("InventoryOpen"))
-            inInventory = !inInventory;
-
-        if (IsInventoryOpen())
-        {
-            move = Vector3.zero;
-            InventoryMovement();
-        }
-        else
-        {
-            Movement();
-        }
+        mouseLook.currentStatus = currentStatus;
     }
 
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && move != Vector3.zero && playerstats.TryUseStamina(2))
-        {
-            characterController.Move(move * sprintspeed * Time.deltaTime);
-        }
-        else
-        {
-            characterController.Move(move * speed * Time.deltaTime);
-        }
+        Movement();
     }
 
     void Movement()
@@ -77,25 +63,28 @@ public class PlayerControl : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpHeight * 2f * -gravity);
         }
         move = transform.right * x + transform.forward * z;
-
-
-        if (Input.GetKey(KeyCode.O))
-        {
-            Debug.Log("System Debug Pause");
-        }
-
         velocity.y += gravity * Time.deltaTime;
 
-        characterController.Move(velocity * Time.deltaTime);
+        if (Input.GetKey(KeyCode.LeftShift) && move != Vector3.zero && playerstats.TryUseStamina(2))
+        {
+            move *= sprintspeed / speed;
+        }
+        move *= speed;
+
+        characterController.Move((velocity + move) * Time.deltaTime);
     }
 
     void InventoryMovement()
     {
         if (Input.GetButtonDown("Vertical"))
         {
-            int y = (int)Mathf.Sign(Input.GetAxis("Vertical"));
-            inventoryCursor += GetInventory().Count - y;
-            inventoryCursor = inventoryCursor % GetInventory().Count;
+            if (GetInventory().Count != 0)
+            {
+                int y = (int)Mathf.Sign(Input.GetAxis("Vertical"));
+                inventoryCursor += GetInventory().Count - y;
+                inventoryCursor = inventoryCursor % GetInventory().Count;
+            }
+            
         }
         else if (Input.GetKeyDown(KeyCode.Q)) 
         {

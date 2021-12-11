@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a17c11a2d4505e44996d89feb0d4bc5, type: 3}
   m_Name: New Item
   m_EditorClassIdentifier: 
-  name: new Item
+  name: Foam
   desc: opis
+  stacksize: 3
