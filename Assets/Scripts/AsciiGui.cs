@@ -33,6 +33,7 @@ public class AsciiGui : MonoBehaviour
         //inventory.Add(new Item("T", "Good One"));
         //inventory.Add(new Item("A", "Good One"));
         //inventory.Add(new Item("KAS", "Good One"));
+        
     }
 
     // Update is called once per frame
@@ -54,7 +55,7 @@ public class AsciiGui : MonoBehaviour
     }
     void PrepareDisplay()
     {
-        displaySize = new Vector2(Screen.width / characterSize.x, Screen.height / characterSize.y);
+        //displaySize = new Vector2(Screen.width / characterSize.x, Screen.height / characterSize.y);
         displayImage = new string[(int)displaySize.y];
         for (int i = 0; i < (int)displaySize.y; i++)
         {

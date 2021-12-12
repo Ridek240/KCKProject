@@ -8,10 +8,13 @@ public class InventoryItem : MonoBehaviour
     public InvStack Item;
     public Text ItemCount;
     public Text ItemName;
+    public InventoryMenu InventoryMenu;
+    public int slotNumber = 0;
+    public bool selected = false;
+    public GameObject SelectedSprite;
     public void SetItem(InvStack item)
     {
         Item = item;
-        Debug.Log("Dodano");
     }
 
     public void Update()
@@ -26,5 +29,11 @@ public class InventoryItem : MonoBehaviour
             ItemCount.text = "";
             ItemName.text = "";
         }
+        SelectedSprite.SetActive(selected);
+    }
+
+    public void ThrowItem()
+    {
+        InventoryMenu.ThrowItem(slotNumber);
     }
 }

@@ -9,6 +9,10 @@ public class GUIManager : MonoBehaviour
     public GameObject EscapeMenu;
     public GameObject InventoryMenu;
     public GameObject CraftingMenu;
+    public GameObject TextMenu;
+    public GameObject StatusMenu;
+
+    public bool isText = false;
 
     public UIStatus currentStatus = UIStatus.InGame;
     // Start is called before the first frame update
@@ -26,6 +30,7 @@ public class GUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        StatusMenu.SetActive(true);
         switch (currentStatus)
         {
             case UIStatus.InGame:
@@ -43,6 +48,17 @@ public class GUIManager : MonoBehaviour
             default:
                 break;
         }
+        if (Input.GetButtonDown(InputType.Text))
+            isText = !isText;
+        if (isText)
+        {
+            HideUI();
+            TextMenu.SetActive(true);
+        }
+        else
+        {
+            TextMenu.SetActive(false);
+        }
     }
 
     void HideUI()
@@ -50,6 +66,7 @@ public class GUIManager : MonoBehaviour
         EscapeMenu.SetActive(false);
         InventoryMenu.SetActive(false);
         CraftingMenu.SetActive(false);
+        StatusMenu.SetActive(false);
     }
 
     void SetStatus(UIStatus status)
@@ -67,23 +84,23 @@ public class GUIManager : MonoBehaviour
 
     void InGame()
     {
+        HideUI();
         if (Input.GetButtonDown(InputType.EscapeMenu))
         {
             SetStatus(UIStatus.EscapeMenu);
-            EscapeMenu.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0;
         }
         else if (Input.GetButtonDown(InputType.InventoryMenu))
         {
             SetStatus(UIStatus.InventoryMenu);
-            InventoryMenu.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
         }
     }
 
     void InEscMenu()
     {
+        EscapeMenu.SetActive(true);
         if (Input.GetButtonDown(InputType.EscapeMenu))
         {
             SetStatusToGame();
@@ -91,14 +108,18 @@ public class GUIManager : MonoBehaviour
     }
     void InInventory()
     {
+        Player.inInventory = true;
+        InventoryMenu.SetActive(true);
         if (Input.GetButtonDown(InputType.EscapeMenu) 
             || Input.GetButtonDown(InputType.InventoryMenu))
         {
             SetStatusToGame();
+            Player.inInventory = false;
         }
     }
     void InCrafting()
     {
+        CraftingMenu.SetActive(true);
         if (Input.GetButtonDown(InputType.EscapeMenu)
             || Input.GetButtonDown(InputType.InventoryMenu))
         {

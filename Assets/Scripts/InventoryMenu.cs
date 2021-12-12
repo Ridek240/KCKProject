@@ -14,6 +14,8 @@ public class InventoryMenu : MonoBehaviour
         for (int i = 0; i < InventorySize; i++)
         {
             inventoryItems.Add(GameObject.Find("Items/" + (i + 1).ToString()).GetComponent(typeof(InventoryItem)) as InventoryItem);
+            inventoryItems[i].slotNumber = i;
+            inventoryItems[i].InventoryMenu = this;
         }
     }
 
@@ -22,13 +24,29 @@ public class InventoryMenu : MonoBehaviour
     {
         inventory = Player.GetInventory();
         draw();
+        SetInactiveItem();
+        inventoryItems[Player.GetInventoryCursor()].selected = true;
+    }
+    public void SetInactiveItem()
+    {
+        foreach (InventoryItem item in inventoryItems)
+        {
+            item.selected = false;
+        }
     }
 
     void draw()
     {
-        for (int i = 0; i < Mathf.Min(inventoryItems.Count, inventory.Count); i++)
+        for (int i = 0; i < inventoryItems.Count; i++)
         {
-            inventoryItems[i].SetItem(inventory[i]);
+            if (i < inventory.Count)
+                inventoryItems[i].SetItem(inventory[i]);
+            else
+                inventoryItems[i].SetItem(null);
         }
+    }
+    public void ThrowItem(int index)
+    {
+        Player.ThrowItem(index);
     }
 }

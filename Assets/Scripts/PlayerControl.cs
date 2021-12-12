@@ -29,7 +29,24 @@ public class PlayerControl : MonoBehaviour
     public Inventory inventory;
     public int inventoryCursor = 0;
 
+    public Vector3 input;
     public Vector3 move;
+
+    private static PlayerControl _instance;
+
+    public static PlayerControl Instance { get { return _instance; } }
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+    }
 
     void Start()
     {
@@ -41,13 +58,24 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         mouseLook.currentStatus = currentStatus;
+        if (currentStatus == UIStatus.InventoryMenu)
+            InventoryMovement();
     }
 
     void FixedUpdate()
     {
+        if (currentStatus == UIStatus.InGame)
+            GetInput();
+        else
+            input = Vector3.zero;
         Movement();
     }
-
+    void GetInput()
+    {
+        input.x = Input.GetAxis("Horizontal");
+        input.z = Input.GetAxis("Vertical");
+        input.y = Input.GetButtonDown("Jump") ? 1 : 0;
+    }
     void Movement()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -55,14 +83,12 @@ public class PlayerControl : MonoBehaviour
         {
             velocity.y = -2f;
         }
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
 
-        if (Input.GetButtonDown("Jump") && isGrounded && playerstats.TryUseStamina(20))
+        if (input.y == 1 && isGrounded && playerstats.TryUseStamina(20))
         {
             velocity.y = Mathf.Sqrt(jumpHeight * 2f * -gravity);
         }
-        move = transform.right * x + transform.forward * z;
+        move = transform.right * input.x + transform.forward * input.z;
         velocity.y += gravity * Time.deltaTime;
 
         if (Input.GetKey(KeyCode.LeftShift) && move != Vector3.zero && playerstats.TryUseStamina(2))
@@ -88,7 +114,7 @@ public class PlayerControl : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Q)) 
         {
-            inventory.Remove(inventoryCursor);
+            ThrowItem();
         }
     }
 
@@ -99,4 +125,6 @@ public class PlayerControl : MonoBehaviour
     public int GetMaxHealth() { return playerstats.GetMaxHealth(); }
     public float GetStamina() { return playerstats.GetCurrentStamina(); }
     public float GetMaxStamina() { return playerstats.GetMaxStamina(); }
+    public void ThrowItem() { inventory.Remove(inventoryCursor); }
+    public void ThrowItem(int index) { inventory.Remove(index); }
 }
