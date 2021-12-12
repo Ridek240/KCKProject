@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerStats : CharacterStats
 {
+    public BarSystem barSystem;
     public float MaxStamina = 200;
     public float currentStamina;
     
@@ -9,6 +10,7 @@ public class PlayerStats : CharacterStats
     {
         base.Awake();
         currentStamina = MaxStamina;
+        barSystem.SetMaxStats(MaxHealth, MaxStamina);
     }
 
     void Start()
@@ -38,6 +40,7 @@ public class PlayerStats : CharacterStats
     {
         currentStamina += 0.5f;
         currentStamina = Mathf.Clamp(currentStamina, 0f, MaxStamina);
+        barSystem.SetStamina(currentStamina);
     }
 
     public bool TryUseStamina(float useStamina)
@@ -57,6 +60,16 @@ public class PlayerStats : CharacterStats
     public float GetMaxStamina()
     {
         return MaxStamina;
+    }
+    public override void TakeDamage(int dmg)
+    {
+        base.TakeDamage(dmg);
+        barSystem.SetHealth(currentHealth);
+    }
+    public override void TakeHeal(int heal)
+    {
+        base.TakeHeal(heal);
+        barSystem.SetHealth(currentHealth);
     }
 
 }

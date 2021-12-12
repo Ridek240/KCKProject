@@ -23,7 +23,7 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         
         damage -= armor.GetValue();
@@ -38,7 +38,7 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
-    public void TakeHeal(int heal)
+    public virtual void TakeHeal(int heal)
     {
         heal += armor.GetValue();
         heal = Mathf.Clamp(heal, 0, int.MaxValue);
