@@ -30,7 +30,6 @@ public class GUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StatusMenu.SetActive(true);
         switch (currentStatus)
         {
             case UIStatus.InGame:
@@ -48,6 +47,7 @@ public class GUIManager : MonoBehaviour
             default:
                 break;
         }
+        StatusMenu.SetActive(true);
         if (Input.GetButtonDown(InputType.Text))
             isText = !isText;
         if (isText)
