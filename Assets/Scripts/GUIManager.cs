@@ -14,10 +14,24 @@ public class GUIManager : MonoBehaviour
 
     public bool isText = false;
 
-    public UIStatus currentStatus = UIStatus.InGame;
+    private static GUIManager _instance;
+    public static GUIManager Instance { get { return _instance; } }
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
+        Player = PlayerControl.Instance;
         if (Player == null)
         {
             Debug.LogError("No player");
@@ -30,7 +44,7 @@ public class GUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (currentStatus)
+        switch (Player.currentStatus)
         {
             case UIStatus.InGame:
                 InGame();
@@ -71,7 +85,6 @@ public class GUIManager : MonoBehaviour
 
     void SetStatus(UIStatus status)
     {
-        currentStatus = status;
         Player.currentStatus = status;
     }
     public void SetStatusToGame()
@@ -108,13 +121,11 @@ public class GUIManager : MonoBehaviour
     }
     void InInventory()
     {
-        Player.inInventory = true;
         InventoryMenu.SetActive(true);
         if (Input.GetButtonDown(InputType.EscapeMenu) 
             || Input.GetButtonDown(InputType.InventoryMenu))
         {
             SetStatusToGame();
-            Player.inInventory = false;
         }
     }
     void InCrafting()

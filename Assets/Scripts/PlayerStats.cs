@@ -5,8 +5,10 @@ public class PlayerStats : CharacterStats
     public BarSystem barSystem;
     public float MaxStamina = 200;
     public float currentStamina;
-    
-    protected void Awake()
+
+    public float sprintspeed = 30f;
+
+    protected new void Awake()
     {
         base.Awake();
         currentStamina = MaxStamina;

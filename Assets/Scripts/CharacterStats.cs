@@ -7,6 +7,9 @@ public class CharacterStats : MonoBehaviour
     public int MaxHealth = 100;
     public int currentHealth { get; private set; }
 
+    public float speed = 12f;
+    public float jumpHeight = 2f;
+
     public Stat damage;
     public Stat armor;
 
