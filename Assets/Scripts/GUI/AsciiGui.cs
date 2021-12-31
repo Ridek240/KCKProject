@@ -23,7 +23,7 @@ public class AsciiGui : MonoBehaviour
     public int CurrentStamina = 21;
     public int MaxStamina = 55;
 
-    public List<InvStack> inventory = new List<InvStack>();
+    public List<Item> inventory = new List<Item>();
 
     public Vector2 characterSize = new Vector2(6, 11);
 
@@ -84,15 +84,15 @@ public class AsciiGui : MonoBehaviour
 
         for (int i = 0; i < inventory.Count; i++)
         {
-            Replace((int)listPosition.x + 5 + (int)(listLenght.x - inventory[i].item.name.Length) / 2, 
+            Replace((int)listPosition.x + 5 + (int)(listLenght.x - inventory[i].GetName().Length) / 2, 
                 ref displayImage[i * 4 + (int)listPosition.y + 2], 
-                inventory[i].item.name);
+                inventory[i].GetName());
             Replace((int)listPosition.x + 2,
                 ref displayImage[i * 4 + (int)listPosition.y + 2],
                 "00");
-            Replace((int)listPosition.x + 4 - inventory[i].actualstack.ToString().Length,
+            Replace((int)listPosition.x + 4 - inventory[i].GetActualStackSize().ToString().Length,
                 ref displayImage[i * 4 + (int)listPosition.y + 2],
-                inventory[i].actualstack.ToString());
+                inventory[i].GetActualStackSize().ToString());
         }
     }
 

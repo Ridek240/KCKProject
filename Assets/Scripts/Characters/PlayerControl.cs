@@ -8,6 +8,8 @@ public class PlayerControl : MonoBehaviour
     public PlayerStats playerstats;
     public MouseLook mouseLook;
 
+    public ItemMenager itemMenager;
+
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
@@ -41,12 +43,15 @@ public class PlayerControl : MonoBehaviour
     {
         currentStatus = UIStatus.InGame;
         playerstats = gameObject.GetComponent(typeof(PlayerStats)) as PlayerStats;
+        itemMenager = new ItemMenager();
+        inventory = Inventory.GetInstance();
     }
 
     // Update is called once per frame
     void Update()
     {
         mouseLook.currentStatus = currentStatus;
+        ItemType item = ItemMenager.GetItemType("Sword");
         if (currentStatus == UIStatus.InventoryMenu)
             InventoryMovement();
     }
@@ -107,7 +112,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    public List<InvStack> GetInventory() { return inventory.items; }
+    public List<Item> GetInventory() { return inventory.items; }
     public bool IsInventoryOpen() { return currentStatus == UIStatus.InventoryMenu; }
     public int GetInventoryCursor() { return inventoryCursor; }
     public int GetHealth() { return playerstats.GetCurrentHealth(); }

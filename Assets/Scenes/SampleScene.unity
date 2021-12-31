@@ -441,8 +441,8 @@ GameObject:
   - component: {fileID: 750174145}
   - component: {fileID: 750174144}
   - component: {fileID: 750174143}
-  - component: {fileID: 750174142}
   - component: {fileID: 750174141}
+  - component: {fileID: 750174142}
   m_Layer: 0
   m_Name: Test item (1)
   m_TagString: Untagged
@@ -480,7 +480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 3
   player: {fileID: 264860019}
-  item: {fileID: 11400000, guid: f768ee000db0fc049b0cc573caa76869, type: 2}
+  item: {fileID: 11400000, guid: 46af6150a81e5bd4f8151da167b1061e, type: 2}
 --- !u!65 &750174143
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -608,7 +608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 3
   player: {fileID: 264860019}
-  item: {fileID: 11400000, guid: f768ee000db0fc049b0cc573caa76869, type: 2}
+  item: {fileID: 11400000, guid: 46af6150a81e5bd4f8151da167b1061e, type: 2}
 --- !u!65 &751164115
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -736,7 +736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 3
   player: {fileID: 264860019}
-  item: {fileID: 11400000, guid: f768ee000db0fc049b0cc573caa76869, type: 2}
+  item: {fileID: 11400000, guid: 94071ace6cbd32941aa789bd52191b15, type: 2}
 --- !u!65 &796437775
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -864,7 +864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 3
   player: {fileID: 264860019}
-  item: {fileID: 11400000, guid: 2a0f748ecfad3b645a762ac927c2c1f2, type: 2}
+  item: {fileID: 11400000, guid: 46af6150a81e5bd4f8151da167b1061e, type: 2}
 --- !u!65 &847339346
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1327,7 +1327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 3
   player: {fileID: 264860019}
-  item: {fileID: 11400000, guid: 80ea9238667fa464e913cc14a760468d, type: 2}
+  item: {fileID: 11400000, guid: 94071ace6cbd32941aa789bd52191b15, type: 2}
 --- !u!65 &1562930730
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1741,7 +1741,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 3
   player: {fileID: 264860019}
-  item: {fileID: 11400000, guid: f768ee000db0fc049b0cc573caa76869, type: 2}
+  item: {fileID: 11400000, guid: c400200fbf7cd424187e02c5349dcff0, type: 2}
 --- !u!65 &1654590234
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2371,7 +2371,7 @@ PrefabInstance:
     - target: {fileID: 742972802389086586, guid: 9899c96750bd41a4eb53e37082c880de, type: 3}
       propertyPath: Player
       value: 
-      objectReference: {fileID: 264860020}
+      objectReference: {fileID: 0}
     - target: {fileID: 742972802389086587, guid: 9899c96750bd41a4eb53e37082c880de, type: 3}
       propertyPath: Player
       value: 

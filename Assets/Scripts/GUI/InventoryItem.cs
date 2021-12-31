@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class InventoryItem : MonoBehaviour
 {
-    public InvStack Item;
+    public Item Item;
     public Text ItemCount;
     public Text ItemName;
     public InventoryMenu InventoryMenu;
     public int slotNumber = 0;
     public bool selected = false;
     public GameObject SelectedSprite;
-    public void SetItem(InvStack item)
+    public void SetItem(Item item)
     {
         Item = item;
     }
@@ -21,8 +21,8 @@ public class InventoryItem : MonoBehaviour
     {
         if (Item != null)
         {
-            ItemCount.text = Item.actualstack.ToString();
-            ItemName.text = Item.item.name.ToString();
+            ItemCount.text = Item.GetActualStackSize().ToString();
+            ItemName.text = Item.GetName();
         }
         else
         {

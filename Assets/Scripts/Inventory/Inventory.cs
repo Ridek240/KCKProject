@@ -5,7 +5,10 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     public static Inventory instance;
-   
+    public List<Item> items = new List<Item>();
+    private Inventory() { }
+    public static Inventory GetInstance() { return instance; }
+
     #region Singleton
     void Awake()
     {
@@ -20,31 +23,31 @@ public class Inventory : MonoBehaviour
 
     public delegate void OnInventoryChanged();
     public OnInventoryChanged onItemChanged;
-
-
-    public List<InvStack> items = new List<InvStack>();
     public bool Add(Item item)
     {
         bool cross = true;
         //Item checkstacks = null;
-        foreach (InvStack it in items)
+        foreach (Item it in items)
         {
-            if (it.item == item && it.actualstack < item.stacksize)
+            if (it.ItemType == item.ItemType && it.GetActualStackSize() < item.GetMaxStackSize())
             {
-                it.actualstack++;
+                it.SetActualStackSize(it.GetActualStackSize() + 1);
                 cross = false;
+                break;
             }
         }
         //checkstacks = items.Find(checkstacks.item == item, checkstacksactualstack < item.stacksize);
         //if(checkstacks!=null)
         if (cross)
         {
-            items.Add(new InvStack(item));
+            items.Add(item);
         }
 
-        Debug.Log("ItemAdded" + item.name);
+        Debug.Log("ItemAdded" + item.GetName());
         if (onItemChanged != null)
-        { onItemChanged.Invoke(); }
+        { 
+            onItemChanged.Invoke();
+        }
         return true;
     }
     public void Remove(Item item)
@@ -57,24 +60,31 @@ public class Inventory : MonoBehaviour
 
     public void Remove(int id)
     {
-        InvStack invStack = items[id];
-        if (invStack.actualstack > 2)
+        Item invStack = items[id];
+        if (invStack.GetActualStackSize() > 2)
         {
-            invStack.actualstack -= 1;
+            invStack.SetActualStackSize(invStack.GetActualStackSize() - 1);
         }
         else
         {
             items.RemoveAt(id);
         }
-        
 
         if (onItemChanged != null)
         { onItemChanged.Invoke(); }
     }
+    public Item AddItem(ItemType itemType)
+    {
+        return new Item(itemType);
+    }
     private void Start()
     {
-        Add(new Item("Sword", "Good one"));
-        Add(new Item("Metal", "Heavy"));
+        ItemType item = ItemMenager.GetItemType("Sword");
+        if (item != null)
+            Add(new Item(item));
+        item = ItemMenager.GetItemType("Metal");
+        if (item != null)
+            Add(new Item(item));
     }
 }
 public class InvStack

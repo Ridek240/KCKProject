@@ -53,24 +53,26 @@
     <UnityVersion>2020.3.16f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\CharacterStats.cs" />
-    <Compile Include="Assets\Scripts\EscapeMenu.cs" />
-    <Compile Include="Assets\Scripts\InventoryMenu.cs" />
-    <Compile Include="Assets\Scripts\AsciiGui.cs" />
-    <Compile Include="Assets\Scripts\Inventory.cs" />
-    <Compile Include="Assets\Scripts\Stat.cs" />
-    <Compile Include="Assets\Scripts\MouseLook.cs" />
-    <Compile Include="Assets\Scripts\Item.cs" />
-    <Compile Include="Assets\Scripts\ItemPickup.cs" />
-    <Compile Include="Assets\Scripts\testingscript.cs" />
-    <Compile Include="Assets\Scripts\InventoryItem.cs" />
-    <Compile Include="Assets\Scripts\GUIManager.cs" />
-    <Compile Include="Assets\Scripts\PlayerStats.cs" />
-    <Compile Include="Assets\Scripts\PlayerControl.cs" />
+    <Compile Include="Assets\Scripts\Characters\CharacterStats.cs" />
+    <Compile Include="Assets\Scripts\GUI\EscapeMenu.cs" />
+    <Compile Include="Assets\Scripts\GUI\InventoryMenu.cs" />
+    <Compile Include="Assets\Scripts\GUI\AsciiGui.cs" />
+    <Compile Include="Assets\Scripts\Inventory\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Characters\Stat.cs" />
+    <Compile Include="Assets\Scripts\Characters\MouseLook.cs" />
+    <Compile Include="Assets\Scripts\GUI\BarSystem.cs" />
+    <Compile Include="Assets\Scripts\Inventory\Old\Item.cs" />
+    <Compile Include="Assets\Scripts\Inventory\ItemPickup.cs" />
+    <Compile Include="Assets\Scripts\GUI\InventoryItem.cs" />
+    <Compile Include="Assets\Scripts\GUI\GUIManager.cs" />
+    <Compile Include="Assets\Scripts\Characters\PlayerStats.cs" />
+    <Compile Include="Assets\Scripts\Characters\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\InputType.cs" />
-    <Compile Include="Assets\Scripts\UIStatus.cs" />
-    <Compile Include="Assets\Scripts\Interactable.cs" />
-    <Compile Include="Assets\Scripts\BarSystem.cs" />
+    <Compile Include="Assets\Scripts\GUI\UIStatus.cs" />
+    <Compile Include="Assets\Scripts\Inventory\Interactable.cs" />
+    <Compile Include="Assets\Scripts\Inventory\ItemMenager.cs" />
+    <Compile Include="Assets\Scripts\Inventory\ItemType.cs" />
+    <Compile Include="Assets\Scripts\Inventory\Item.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
