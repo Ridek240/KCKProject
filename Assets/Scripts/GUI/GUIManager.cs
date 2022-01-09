@@ -15,7 +15,7 @@ public class GUIManager : MonoBehaviour
     public bool isText = false;
 
     private static GUIManager _instance;
-    public static GUIManager Instance { get { return _instance; } }
+    public static GUIManager GetInstance() { return _instance; }
 
     private void Awake()
     {
@@ -31,7 +31,7 @@ public class GUIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player = PlayerControl.Instance;
+        Player = PlayerControl.GetInstance();
         if (Player == null)
         {
             Debug.LogError("No player");
@@ -136,5 +136,10 @@ public class GUIManager : MonoBehaviour
         {
             SetStatusToGame();
         }
+    }
+
+    public BarSystem GetBarSystem()
+    {
+        return StatusMenu.GetComponent(typeof(BarSystem)) as BarSystem;
     }
 }

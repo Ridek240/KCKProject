@@ -33,7 +33,7 @@ public class AsciiGui : MonoBehaviour
         //inventory.Add(new Item("T", "Good One"));
         //inventory.Add(new Item("A", "Good One"));
         //inventory.Add(new Item("KAS", "Good One"));
-        
+        Player = PlayerControl.GetInstance();
     }
 
     // Update is called once per frame

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     public CharacterController characterController;
-    public PlayerStats playerstats;
+    public CharacterStats playerstats;
     public MouseLook mouseLook;
 
     public ItemMenager itemMenager;
@@ -25,7 +25,7 @@ public class PlayerControl : MonoBehaviour
     public Vector3 move;
 
     private static PlayerControl _instance;
-    public static PlayerControl Instance { get { return _instance; } }
+    public static PlayerControl GetInstance() { return _instance; }
 
     private void Awake()
     {
@@ -37,12 +37,16 @@ public class PlayerControl : MonoBehaviour
         {
             _instance = this;
         }
+        
     }
 
     void Start()
     {
         currentStatus = UIStatus.InGame;
-        playerstats = gameObject.GetComponent(typeof(PlayerStats)) as PlayerStats;
+        //playerstats = gameObject.GetComponent(typeof(PlayerStats)) as PlayerStats;
+        Debug.Log(playerstats.GetMaxHealth().ToString());
+        playerstats = new HealthBuff(playerstats);
+        Debug.Log(playerstats.GetMaxHealth().ToString());
         itemMenager = new ItemMenager();
         inventory = Inventory.GetInstance();
     }
@@ -54,15 +58,16 @@ public class PlayerControl : MonoBehaviour
         ItemType item = ItemMenager.GetItemType("Sword");
         if (currentStatus == UIStatus.InventoryMenu)
             InventoryMovement();
-    }
-
-    void FixedUpdate()
-    {
         if (currentStatus == UIStatus.InGame)
             GetInput();
         else
             input = Vector3.zero;
         Movement();
+    }
+
+    void FixedUpdate()
+    {
+        
     }
     void GetInput()
     {
@@ -72,6 +77,8 @@ public class PlayerControl : MonoBehaviour
     }
     void Movement()
     {
+        playerstats.UpdateStats();
+        bool usingStamina = false;
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if (isGrounded && velocity.y < 0)
         {
@@ -81,17 +88,24 @@ public class PlayerControl : MonoBehaviour
         if (input.y == 1 && isGrounded && playerstats.TryUseStamina(20))
         {
             velocity.y = Mathf.Sqrt(playerstats.jumpHeight * 2f * -gravity);
+            usingStamina = true;
         }
         move = transform.right * input.x + transform.forward * input.z;
         velocity.y += gravity * Time.deltaTime;
-
-        if (Input.GetKey(KeyCode.LeftShift) && move != Vector3.zero && playerstats.TryUseStamina(2))
+        //bool a = playerstats.TryUseStamina(2);
+        if (Input.GetKey(KeyCode.LeftShift) && move != Vector3.zero && playerstats.TryUseStamina(100 * Time.deltaTime))
         {
             move *= playerstats.sprintspeed / playerstats.speed;
+            usingStamina = true;
         }
         move *= playerstats.speed;
 
         characterController.Move((velocity + move) * Time.deltaTime);
+
+        if (!usingStamina)
+        {
+            playerstats.UpdateStamina();
+        }
     }
 
     void InventoryMovement()

@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class PlayerStats : CharacterStats
 {
-    public BarSystem barSystem;
-    public float MaxStamina = 200;
-    public float currentStamina;
-
-    public float sprintspeed = 30f;
-
+    public PlayerStats() : base()
+    {
+        currentStamina = MaxStamina;
+    }
+    /*
     protected new void Awake()
     {
         base.Awake();
@@ -17,9 +16,8 @@ public class PlayerStats : CharacterStats
 
     void Start()
     {
-        
-    }
 
+    }
     // Update is called once per frame
     void Update()
     {
@@ -44,25 +42,7 @@ public class PlayerStats : CharacterStats
         currentStamina = Mathf.Clamp(currentStamina, 0f, MaxStamina);
         barSystem.SetStamina(currentStamina);
     }
-
-    public bool TryUseStamina(float useStamina)
-    {
-        if (currentStamina >= useStamina)
-        {
-            currentStamina -= useStamina;
-            return true;
-        }
-        else return false;
-        
-    }
-    public float GetCurrentStamina()
-    {
-        return currentStamina;
-    }
-    public float GetMaxStamina()
-    {
-        return MaxStamina;
-    }
+    //*/
     public override void TakeDamage(int dmg)
     {
         base.TakeDamage(dmg);

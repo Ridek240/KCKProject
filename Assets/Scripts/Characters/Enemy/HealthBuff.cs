@@ -13,5 +13,6 @@ public class HealthBuff : Buff
     {
         int health = base.GetMaxHealth();
         base.SetMaxHealth((int)(1.5 * health));
+        Debug.Log("HELP ME");
     }
 }

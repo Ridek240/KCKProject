@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OnDeathBuff : Buff
 {
-public OnDeathBuff(CharacterStats characterStats):base(characterStats)
+    public OnDeathBuff(CharacterStats characterStats):base(characterStats)
     {
 
     }
@@ -22,7 +22,6 @@ public OnDeathBuff(CharacterStats characterStats):base(characterStats)
     {
        // base.Die();
         Debug.Log("dekorator");
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
-
 }

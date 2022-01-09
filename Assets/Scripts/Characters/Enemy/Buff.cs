@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Buff : CharacterStats
 {
-
     public CharacterStats Stats;
     public Buff(CharacterStats characterStats)
     {
@@ -15,12 +14,10 @@ public class Buff : CharacterStats
     {
         Stats.Die();
     }
-    
-    public int GetCurrentHealth()
+    public override int GetCurrentHealth()
     {
         return Stats.GetCurrentHealth();
     }
-
     public override void TakeDamage(int damage)
     {
         Stats.TakeDamage(damage);
@@ -33,8 +30,28 @@ public class Buff : CharacterStats
     {
         Stats.SetMaxHealth(health);
     }
-    public int GetMaxHealth()
+    public override int GetMaxHealth()
     {
         return Stats.GetMaxHealth();
+    }
+    public override bool TryUseStamina(float useStamina)
+    {
+        return Stats.TryUseStamina(useStamina);
+    }
+    public override float GetCurrentStamina()
+    {
+        return Stats.GetCurrentStamina();
+    }
+    public override float GetMaxStamina()
+    {
+        return Stats.GetMaxStamina();
+    }
+    public override void UpdateStamina()
+    {
+        Stats.UpdateStamina();
+    }
+    public override void UpdateStats()
+    {
+        Stats.UpdateStats();
     }
 }

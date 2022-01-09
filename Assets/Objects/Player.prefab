@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 257192419416131754}
   - component: {fileID: 257192419416131755}
   - component: {fileID: 257192419416131757}
-  - component: {fileID: 257192419416131756}
-  - component: {fileID: 257192419416131759}
+  - component: {fileID: 8140280017681441104}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -68,28 +67,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 257192419416131755}
-  playerstats: {fileID: 0}
+  playerstats:
+    MaxHealth: 100
+    Alife: 0
+    speed: 12
+    jumpHeight: 2
+    MaxStamina: 200
+    currentStamina: 0
+    sprintspeed: 30
+    damage:
+      baseValue: 0
+    armor:
+      baseValue: 0
   mouseLook: {fileID: 257192419891880863}
-  CurrentHealth: 3
-  MaxHealth: 35
-  CurrentStamina: 14
-  MaxStamina: 36
-  speed: 12
-  sprintspeed: 30
   groundCheck: {fileID: 257192420274670581}
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
     m_Bits: 8
-  gravity: -9.81
-  jumpHeight: 2
+  inventory: {fileID: 8140280017681441104}
   currentStatus: 0
-  inInventory: 0
-  inventory: {fileID: 257192419416131756}
   inventoryCursor: 0
+  gravity: -9.81
   input: {x: 0, y: 0, z: 0}
   move: {x: 0, y: 0, z: 0}
---- !u!114 &257192419416131756
+--- !u!114 &8140280017681441104
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,26 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ea8a26b31ad5e49a55f6b485967943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &257192419416131759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 257192419416131752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45e82d371e516594183a17faae5c4731, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHealth: 100
-  damage:
-    baseValue: 0
-  armor:
-    baseValue: 0
-  barSystem: {fileID: 0}
-  MaxStamina: 200
-  currentStamina: 0
+  items: []
 --- !u!1 &257192419891880861
 GameObject:
   m_ObjectHideFlags: 0

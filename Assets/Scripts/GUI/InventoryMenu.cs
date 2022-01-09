@@ -12,7 +12,7 @@ public class InventoryMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player = PlayerControl.Instance;
+        Player = PlayerControl.GetInstance();
         inventory = Inventory.instance;
         for (int i = 0; i < InventorySize; i++)
         {
