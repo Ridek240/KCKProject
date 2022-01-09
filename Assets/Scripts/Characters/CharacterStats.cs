@@ -7,6 +7,8 @@ public class CharacterStats : MonoBehaviour
     public int MaxHealth = 100;
     public int currentHealth { get; private set; }
 
+    public bool Alife;
+
     public float speed = 12f;
     public float jumpHeight = 2f;
 
@@ -35,9 +37,12 @@ public class CharacterStats : MonoBehaviour
         currentHealth -= damage;
         Debug.Log(transform.name + " takes " + damage + " damage.");
 
-        if(currentHealth<=0)
+
+
+        Alife = true;
+        if (currentHealth <= 0)
         {
-            Die();
+            Alife = false;
         }
     }
 
@@ -49,22 +54,26 @@ public class CharacterStats : MonoBehaviour
         currentHealth += heal;
         currentHealth = Mathf.Clamp(currentHealth, 0, MaxHealth);
         Debug.Log(transform.name + " takes " + heal + " damage.");
-
+        Alife = true;
         if (currentHealth <= 0)
         {
-            Die();
+            Alife = false;
         }
     }
     public virtual void Die()
     {
         Debug.Log(transform.name + " died"); 
     }
-    public int GetCurrentHealth()
+    public virtual int GetCurrentHealth()
     {
         return currentHealth;
     }
-    public int GetMaxHealth()
+    public virtual int GetMaxHealth()
     {
         return MaxHealth;
+    }
+    public virtual void SetMaxHealth(int health)
+    {
+        currentHealth = health;
     }
 }
