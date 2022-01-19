@@ -27,7 +27,7 @@ public class Inventory : MonoBehaviour
     public bool Add(Item item)
     {
         bool cross = true;
-        //Item checkstacks = null;
+  
         foreach (Item it in items)
         {
             if (it.ItemType == item.ItemType && it.GetActualStackSize() < item.GetMaxStackSize())
@@ -37,8 +37,7 @@ public class Inventory : MonoBehaviour
                 break;
             }
         }
-        //checkstacks = items.Find(checkstacks.item == item, checkstacksactualstack < item.stacksize);
-        //if(checkstacks!=null)
+
         if (cross)
         {
             items.Add(item);
@@ -53,7 +52,7 @@ public class Inventory : MonoBehaviour
     }
     public void Remove(Item item)
     {
-        //items.Remove(item);
+      
 
         if (onItemChanged != null)
         { onItemChanged.Invoke(); }
@@ -86,15 +85,5 @@ public class Inventory : MonoBehaviour
         item = ItemMenager.GetItemType("Metal");
         if (item != null)
             Add(new Item(item));
-    }
-}
-public class InvStack
-{
-    public Item item;
-    public int actualstack;
-    public InvStack(Item item)
-    {
-        this.item = item;
-        actualstack = 1;
     }
 }

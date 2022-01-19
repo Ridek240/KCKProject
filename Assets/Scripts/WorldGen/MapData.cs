@@ -31,10 +31,8 @@ public class MapData
         {
             for (int j = 0; j < RenderDistance * 2 + 1; j++)
             {
-                //var prefabGameObject = EditorUtility.GetPrefabParent(map[i][j]);
-                //var prefabGameObject = PrefabUtility.GetCorrespondingObjectFromSource(map[i][j]);
                 Chunks[i][j] = new ChunkData(i - RenderDistance, j - RenderDistance, map[i][j].name);
-                Debug.Log(map[i][j].name);
+                
             }
         }
     }

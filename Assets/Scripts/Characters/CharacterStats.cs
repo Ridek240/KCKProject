@@ -7,7 +7,7 @@ public class CharacterStats// : MonoBehaviour
 {
     public BarSystem barSystem;
     public int MaxHealth = 100;
-    public int currentHealth { get; private set; }
+    public int currentHealth;
 
     public bool Alife;
 
@@ -15,28 +15,16 @@ public class CharacterStats// : MonoBehaviour
     public float jumpHeight = 2f;
     public float MaxStamina = 200;
     public float currentStamina;
+    public float staminaRegeneration = 0.5f;
 
     public float sprintspeed = 30f;
 
     public Stat damage;
     public Stat armor;
-    /*
-    protected void Awake()
-    {
-        currentHealth = MaxHealth;
-    }
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            TakeDamage(20);
-        }
-    }
-    //*/
     public virtual void UpdateStamina()
     {
-        currentStamina += 0.5f;
+        currentStamina += staminaRegeneration;
         currentStamina = Mathf.Clamp(currentStamina, 0f, MaxStamina);
     }
 
@@ -54,9 +42,6 @@ public class CharacterStats// : MonoBehaviour
         damage = Mathf.Clamp(damage, 0, int.MaxValue);
 
         currentHealth -= damage;
-        //Debug.Log(transform.name + " takes " + damage + " damage.");
-
-
 
         Alife = true;
         if (currentHealth <= 0)
@@ -112,5 +97,13 @@ public class CharacterStats// : MonoBehaviour
     public virtual void SetMaxHealth(int health)
     {
         MaxHealth = health;
+    }
+    public virtual void SetMaxStamina(int stamina)
+    {
+        MaxStamina = stamina;
+    }
+    public virtual void SetStaminaRegen(float stamina)
+    {
+        staminaRegeneration = stamina;
     }
 }

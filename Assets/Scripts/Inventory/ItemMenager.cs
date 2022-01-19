@@ -20,7 +20,7 @@ public class ItemMenager
         foreach (var item in itemTypes)
         {
             int alpha = item.name.CompareTo(itemTypeName);
-            int a = 1;
+            
             if (item.name.CompareTo(itemTypeName) == 0)
                 return item;
         }

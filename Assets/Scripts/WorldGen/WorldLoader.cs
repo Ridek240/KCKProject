@@ -28,5 +28,7 @@ public class WorldLoader : WorldBuilder
     public override void SetMapData(MapData mapData) 
     {
         MapData = mapData;
+        RenderDistance = MapData.RenderDistance;
+        ChunkSize = new Vector3(mapData.ChunkSizeX, mapData.ChunkSizeY, mapData.ChunkSizeZ);
     }
 }

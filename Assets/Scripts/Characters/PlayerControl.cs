@@ -13,7 +13,7 @@ public class PlayerControl : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
-    private bool isGrounded;
+    public bool isGrounded;
 
     public Inventory inventory;
     public UIStatus currentStatus;
@@ -92,7 +92,6 @@ public class PlayerControl : MonoBehaviour
         }
         move = transform.right * input.x + transform.forward * input.z;
         velocity.y += gravity * Time.deltaTime;
-        //bool a = playerstats.TryUseStamina(2);
         if (Input.GetKey(KeyCode.LeftShift) && move != Vector3.zero && playerstats.TryUseStamina(100 * Time.deltaTime))
         {
             move *= playerstats.sprintspeed / playerstats.speed;

@@ -54,4 +54,12 @@ public class Buff : CharacterStats
     {
         Stats.UpdateStats();
     }
+    public override void SetMaxStamina(int stamina)
+    {
+        Stats.SetMaxStamina(stamina);
+    }
+    public override void SetStaminaRegen(float stamina)
+    {
+        Stats.SetStaminaRegen(stamina);
+    }
 }
