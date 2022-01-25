@@ -5,7 +5,7 @@ using UnityEngine;
 public class FlyingEnemyAI : EnemyAI
 {
 
-    public int Fly = 0;
+    public int inCorrectHeight = 0;
     public bool IsTired = false;
 
 
@@ -28,9 +28,6 @@ public class FlyingEnemyAI : EnemyAI
             StateTired();
         }
 
-
-
-
     }
 
     public void ActionMove()
@@ -38,11 +35,12 @@ public class FlyingEnemyAI : EnemyAI
         if(characterStats.TryUseStamina(50* Time.deltaTime) ==true)
         {
             characterController.Move((velocity + move * characterStats.speed) * Time.deltaTime);
-            transform.Rotate(new Vector3(0f, 1f, 0f));
+            transform.Rotate(new Vector3(0f, 100f, 0f) * Time.deltaTime);
         }
         else { 
             IsTired = true;
             move = new Vector3(0f,0f,0f);
+            characterStats = new StaminaBuff(characterStats);
               }
     }
 
@@ -50,11 +48,11 @@ public class FlyingEnemyAI : EnemyAI
     {
         if(transform.position.y<20)
         {
-            Fly = 1;
+            inCorrectHeight = 1;
         }
-        else { Fly = 0; }
+        else { inCorrectHeight = 0; }
 
-        move = transform.forward + transform.up * Fly;
+        move = transform.forward + transform.up * inCorrectHeight;
     }
 
     public void StateTired()

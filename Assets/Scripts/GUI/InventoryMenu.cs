@@ -13,7 +13,7 @@ public class InventoryMenu : MonoBehaviour
     void Start()
     {
         Player = PlayerControl.GetInstance();
-        inventory = Inventory.instance;
+        inventory = Inventory.GetInstance();
         for (int i = 0; i < InventorySize; i++)
         {
             inventoryItems.Add(GameObject.Find("Items/" + (i + 1).ToString()).GetComponent(typeof(InventoryItem)) as InventoryItem);

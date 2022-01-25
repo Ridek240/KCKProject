@@ -5,12 +5,11 @@ using UnityEngine;
 [System.Serializable]
 public class Inventory : MonoBehaviour
 {
-    public static Inventory instance;
+    private static Inventory instance;
     public List<Item> items = new List<Item>();
     private Inventory() { }
     public static Inventory GetInstance() { return instance; }
 
-    #region Singleton
     void Awake()
     {
         if (instance!=null)
@@ -20,10 +19,7 @@ public class Inventory : MonoBehaviour
         }
         instance = this;
     }
-    #endregion
-
-    public delegate void OnInventoryChanged();
-    public OnInventoryChanged onItemChanged;
+   
     public bool Add(Item item)
     {
         bool cross = true;
@@ -44,19 +40,10 @@ public class Inventory : MonoBehaviour
         }
 
         Debug.Log("ItemAdded" + item.GetName());
-        if (onItemChanged != null)
-        { 
-            onItemChanged.Invoke();
-        }
+
         return true;
     }
-    public void Remove(Item item)
-    {
-      
 
-        if (onItemChanged != null)
-        { onItemChanged.Invoke(); }
-    }
 
     public void Remove(int id)
     {
@@ -70,13 +57,13 @@ public class Inventory : MonoBehaviour
             items.RemoveAt(id);
         }
 
-        if (onItemChanged != null)
-        { onItemChanged.Invoke(); }
+
     }
     public Item AddItem(ItemType itemType)
     {
         return new Item(itemType);
     }
+
     private void Start()
     {
         ItemType item = ItemMenager.GetItemType("Sword");

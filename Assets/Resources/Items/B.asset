@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36d100b5c01111d45b627edbda3852ca, type: 3}
   m_Name: B
   m_EditorClassIdentifier: 
-  Name: 3
+  Name: Bomb
   Description: e
   MaxDurability: 1
   MaxStackSize: 2

@@ -8,11 +8,12 @@ public class HealthBuff : Buff
     {
         int health = base.GetMaxHealth();
         base.SetMaxHealth((int)(amount * health));
+        base.Iniciate(); 
     }
     public HealthBuff(CharacterStats characterStats) : base(characterStats)
     {
         int health = base.GetMaxHealth();
         base.SetMaxHealth((int)(1.5 * health));
-        Debug.Log("HELP ME");
+        
     }
 }

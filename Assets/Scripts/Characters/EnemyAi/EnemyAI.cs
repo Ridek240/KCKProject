@@ -18,14 +18,14 @@ public abstract class EnemyAI : MonoBehaviour
     //movement vectors
     public Vector3 velocity;
     public float gravity = -9.81f;
-    public Vector3 input;
     public Vector3 move;
 
     public virtual void Awake()
     {
         characterController = this.GetComponent(typeof(CharacterController)) as CharacterController;
-        //porywanie gracza???
+        
         velocity = new Vector3(0f,0f,0f);
+        
     }
 
     public void Update()

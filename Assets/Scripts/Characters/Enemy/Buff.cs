@@ -8,12 +8,9 @@ public class Buff : CharacterStats
     public Buff(CharacterStats characterStats)
     {
         Stats = characterStats;
+        Iniciate();
     }
 
-    public override void Die()
-    {
-        Stats.Die();
-    }
     public override int GetCurrentHealth()
     {
         return Stats.GetCurrentHealth();
@@ -61,5 +58,13 @@ public class Buff : CharacterStats
     public override void SetStaminaRegen(float stamina)
     {
         Stats.SetStaminaRegen(stamina);
+    }
+    public override void SetSprintSpeed(float sprintspeed)
+    {
+        Stats.SetSprintSpeed(sprintspeed);
+    }
+    public override void Iniciate()
+    {
+        Stats.Iniciate();
     }
 }

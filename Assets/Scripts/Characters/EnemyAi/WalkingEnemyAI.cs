@@ -6,7 +6,6 @@ public class WalkingEnemyAI : EnemyAI
 {
     public Vector3 Direction;
     public float angle;
-    public int Rotation;
     public Vector3 homePosition;
 
 

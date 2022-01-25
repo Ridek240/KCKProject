@@ -43,9 +43,12 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         currentStatus = UIStatus.InGame;
-        //playerstats = gameObject.GetComponent(typeof(PlayerStats)) as PlayerStats;
+        playerstats = new PlayerStats();
         Debug.Log(playerstats.GetMaxHealth().ToString());
         playerstats = new HealthBuff(playerstats);
+        playerstats = new HealthBuff(playerstats);
+        playerstats = new MovementBuff(playerstats);
+        playerstats = new StaminaBuff(playerstats);
         Debug.Log(playerstats.GetMaxHealth().ToString());
         itemMenager = new ItemMenager();
         inventory = Inventory.GetInstance();
@@ -65,10 +68,6 @@ public class PlayerControl : MonoBehaviour
         Movement();
     }
 
-    void FixedUpdate()
-    {
-        
-    }
     void GetInput()
     {
         input.x = Input.GetAxis("Horizontal");
@@ -90,8 +89,10 @@ public class PlayerControl : MonoBehaviour
             velocity.y = Mathf.Sqrt(playerstats.jumpHeight * 2f * -gravity);
             usingStamina = true;
         }
+
         move = transform.right * input.x + transform.forward * input.z;
         velocity.y += gravity * Time.deltaTime;
+
         if (Input.GetKey(KeyCode.LeftShift) && move != Vector3.zero && playerstats.TryUseStamina(100 * Time.deltaTime))
         {
             move *= playerstats.sprintspeed / playerstats.speed;
@@ -128,10 +129,6 @@ public class PlayerControl : MonoBehaviour
     public List<Item> GetInventory() { return inventory.items; }
     public bool IsInventoryOpen() { return currentStatus == UIStatus.InventoryMenu; }
     public int GetInventoryCursor() { return inventoryCursor; }
-    public int GetHealth() { return playerstats.GetCurrentHealth(); }
-    public int GetMaxHealth() { return playerstats.GetMaxHealth(); }
-    public float GetStamina() { return playerstats.GetCurrentStamina(); }
-    public float GetMaxStamina() { return playerstats.GetMaxStamina(); }
     public void ThrowItem() { inventory.Remove(inventoryCursor); }
     public void ThrowItem(int index) { inventory.Remove(index); }
 }
